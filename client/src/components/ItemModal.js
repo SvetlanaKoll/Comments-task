@@ -14,9 +14,9 @@ import { connect } from 'react-redux'
 import { addItem, updateItem } from '../actions/itemActions'
 
 const ItemModal = (props) => {
-  // useEffect(() => {
-  //   console.log(props.modalState.isOpen)
-  // }, [])
+  useEffect(() => {
+    console.log(props)
+  }, [])
 
   const onSubmit = e => {
     e.preventDefault()
@@ -31,21 +31,33 @@ const ItemModal = (props) => {
         props.closeModal()
         break
       }
+      // case 'CREATE': { create_child
+      //   props.addItem(item)
+      //   props.closeModal()
+      //   break
+      // }
       case 'EDIT': {
-        props.updateItem(item)
+        props.updateItem({
+          id: props.modalState.data.id,
+          ...item
+        })
         props.closeModal()
         break
       }
     }
   }
+
+  if (!props.modalState) {
+    return ''
+  }
   return (
     <div>
       <Modal
-        isOpen={true}
+        isOpen={props.modalState.isOpen}
         toggle={props.closeModal}>
         <ModalHeader
           toggle={props.closeModal}>
-              Add To Comment List
+             {props.modalState.mode === 'CREATE' || 'CREATE_CHILD' ? 'Add To Comment List' : 'Edit Your Comment'} 
         </ModalHeader>
         <ModalBody>
           <Form
@@ -61,7 +73,7 @@ const ItemModal = (props) => {
                 name='author'
                 id='author'
                 placeholder='Your name'
-                value={props.modalState.data.author || ''}
+                defaultValue={props.modalState.data.author || ''}
               >
               </Input>
               <Input
@@ -69,13 +81,13 @@ const ItemModal = (props) => {
                 name='name'
                 id='comment'
                 placeholder='Add your comment here'
-                value={props.modalState.data.comment || ''}
+                defaultValue={props.modalState.data.comment || ''}
               >
               </Input>
               <Button
                 color='dark'
                 style={{ marginTop: '2rem' }}
-                block>{props.modalState.mode === 'CREATE' ? 'Add Comment' : 'Edit'}</Button>
+                block>{props.modalState.mode === 'CREATE' || 'CREATE_CHILD' ? 'Add Comment' : 'Edit'}</Button>
             </FormGroup>
           </Form>
         </ModalBody>

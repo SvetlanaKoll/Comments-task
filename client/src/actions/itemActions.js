@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from './types'
+import { GET_ITEMS, ADD_ITEM, ADD_CHILD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from './types'
 
 export const getItems = () => dispatch => {
   dispatch(setItemsLoading())
@@ -18,6 +18,16 @@ export const addItem = item => dispatch => {
     .then(res =>
       dispatch({
         type: ADD_ITEM,
+        payload: res.data
+      }))
+}
+
+export const addChildItem = ({ commentId, item }) => dispatch => {
+  axios
+    .post(`/api/comment/${commentId}`, item)
+    .then(res =>
+      dispatch({
+        type: ADD_CHILD_ITEM,
         payload: res.data
       }))
 }

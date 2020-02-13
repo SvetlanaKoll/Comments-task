@@ -26,7 +26,14 @@ export default function (state = initialState, action) {
       }
       case UPDATE_ITEM:
       return {
-        
+        ...state,
+        items: state.items.map( item => {
+          if(item._id === action.payload._id){
+            console.log(action.payload)
+            return action.payload
+          }
+          return item
+        })
       }
     case ITEMS_LOADING:
       return {

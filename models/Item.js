@@ -13,8 +13,16 @@ const ItemSchema = new Schema({
   },
   createdAt:{
     type: Date,
-    default: Date.now
+    // default: Date.now
+  },
+  updatedAt:{
+    type: Date,
+    required: false
+  },
+  replies:{
+    type: Array,
+    required: false
   }
-})
+}, {timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }})
 
 module.exports = Item = mongoose.model('item', ItemSchema)

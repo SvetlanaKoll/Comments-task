@@ -37,6 +37,25 @@ router.delete('/:id', (req, res) => {
   .catch(err => res.status(404).json({success: false}))
 })
 
+//@route UPDATE api/items/:id
+//@desc update an item 
+//@access Public
+
+router.post('/update/:id', (req, res) => {
+  Item.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then( item => res.json(item))
+  .catch(err => res.status(404).json({success: false}))
+})
+
+//@route ADD CHILD ITEM api/comment/:id
+//@desc add child to an item 
+//@access Public
+
+router.post('/comment/:id', (req, res) => {
+  Item.findByIdAndUpdate(req.params.id, { replies: [req.body] }, {new: true})
+  .then( item => res.json(item))
+  .catch(err => res.status(404).json({success: false}))
+})
 
 
 module.exports = router
