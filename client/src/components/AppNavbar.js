@@ -39,7 +39,7 @@ class AppNavbar extends Component {
             </Collapse>
           </Container>
         </Navbar >
-        <div className="block"></div>
+        <div className='block'></div>
       </div>
 
     )

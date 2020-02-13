@@ -1,71 +1,60 @@
-import React, { Component } from 'react'
-import { Container, ListGroup, ListGroupItemText, ListGroupItemHeading, ListGroupItem, Button, ButtonGroup  } from 'reactstrap'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+/* eslint-disable react/jsx-key */
+import React, { useState, useEffect } from 'react'
+import { Container, ListGroup, Button} from 'reactstrap'
+import { TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { getItems, deleteItem } from '../actions/itemActions'
-import moment from 'moment'
+import { getItems, deleteItem, updateItem } from '../actions/itemActions'
 import PropTypes from 'prop-types'
+import ItemModal from './ItemModal'
+import Comment from './Comment'
 
-class ShoppingList extends Component {
-  componentDidMount () {
-    this.props.getItems()
+const ShoppingList = (props) => {
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    mode: 'CREATE',
+    data: {}
+  })
+
+  useEffect(() => {
+    getItems()
+  }, [])
+
+  //It should be in Comment component
+  const showEditModal = (data) => {
+    setModalState({
+      isOpen: true,
+      mode: 'EDIT',
+      data
+    })
   }
+  const { items } = props.item
 
-  onDeleteClick = id => {
-    this.props.deleteItem(id)
-  }
-
-  render () {
-    
-    const { items } = this.props.item
-    
-    return (
-      <Container>
-
-        <ListGroup>
-          <TransitionGroup className='shopping-list'>
-            {items.map(({ _id, author, comment, createdAt}) => (
-              <CSSTransition key={_id} timeout={500} classNames='fade'>
-                <ListGroupItem className="list-item">
-            <ListGroupItemText> Author: {author} </ListGroupItemText>
-                <ListGroupItemHeading>
-              {comment}
-                </ListGroupItemHeading>
-                <ListGroupItemText>
-                Created: {moment(createdAt).calendar()}
-               
-                </ListGroupItemText>
-                Updated at:
-        <ButtonGroup style={{marginLeft: '90%'}}> 
-        <Button
-                    className='btn'
-                    color='warning'
-                    size='sm'
-                    // onClick={this.onDeleteClick.bind(this, _id)}
-                  ><i class="fas fa-pencil-alt"></i></Button>
-               
-               <Button
-                    className='btn'
-                    color='info'
-                    size='sm'
-                    // onClick={this.onDeleteClick.bind(this, _id)}
-                  ><i class="fas fa-reply"></i></Button>
-               
-                  <Button
-                    className='btn'
-                    color='danger'
-                    size='sm'
-                    onClick={this.onDeleteClick.bind(this, _id)}
-                  >&times;</Button>
-                  </ButtonGroup> 
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
-      </Container>
-    )
-  }
+  return (
+    <Container>
+      <ItemModal
+        modalState={modalState}
+        closeModal={() => setModalState({ ...modalState, isOpen: false })}
+      />
+      <Button
+        color='dark'
+        style={{ marginBottom: '2rem' }}
+        onClick={() => setModalState({ ...modalState, isOpen: true })}>
+          Add Comment
+      </Button>
+      <ListGroup>
+        <TransitionGroup className='shopping-list'>
+          {items.map(({ _id, author, comment, createdAt }) => (
+            <Comment
+              _id={_id}
+              author={author}
+              comment={comment}
+              createdAt={createdAt}
+            />
+          ))}
+        </TransitionGroup>
+      </ListGroup>
+    </Container>
+  )
 }
 ShoppingList.propTypes = {
   getItems: PropTypes.func.isRequired,
@@ -76,4 +65,4 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList)
+export default connect(mapStateToProps, { getItems, deleteItem, updateItem })(ShoppingList)
