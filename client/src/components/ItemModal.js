@@ -36,9 +36,11 @@ const ItemModal = (props) => {
       }
       case 'ADD_CHILD_ITEM': {
         props.addChildItem({
-          id: props.modalState.data.id,
-          replies: props.modalState.data.replies,
-          ...item
+          commentId: props.modalState.data.id,
+          item: {
+            ...item,
+            replies: props.modalState.data.replies
+          }
         })
         props.closeModal()
         break
@@ -46,7 +48,7 @@ const ItemModal = (props) => {
       case 'EDIT': {
         props.updateItem({
           id: props.modalState.data.id,
-          ...item
+          item
         })
         props.closeModal()
         break

@@ -30,7 +30,7 @@ const CommentPage = (props) => {
   if (isLoading) {
     return 'Loading'
   }
-  console.log(props)
+
   return (
     <Container>
       <ItemModal
@@ -44,8 +44,8 @@ const CommentPage = (props) => {
           Add Comment
       </Button>
       <CommentList 
-      items={items}
-      updateModalState={updateModalState}
+        items={items}
+        updateModalState={updateModalState}
       />
     </Container>
   )
@@ -56,7 +56,8 @@ CommentList.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  item: state.item
+  item: state.item,
+  modalState: state.modalState
 })
 
 export default connect(mapStateToProps, { getItems })(CommentPage)

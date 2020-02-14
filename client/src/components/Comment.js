@@ -38,6 +38,8 @@ const Comment = (props) => {
 
   return (
     <CSSTransition key={props._id} timeout={500} classNames='fade'>
+      <>
+     
       <ListGroupItem className='list-item'>
         <ListGroupItemText>
             Author: {props.author}
@@ -77,9 +79,10 @@ const Comment = (props) => {
         </ButtonGroup>
       </ListGroupItem>
       <CommentList 
-      items={props.replies}
-      style={{marginLeft: '2 rem'}}
+        items={props.replies}
+        style={{marginLeft: '2 rem'}}
       />
+      </>
     </CSSTransition>
   )
 }

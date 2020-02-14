@@ -54,13 +54,17 @@ router.post('/update/:id', (req, res) => {
 router.post('/:id', (req, res) => {
   Item.findById(req.params.id)
   .then(item => {
-    const updatedItem = {
-      ...item._doc,
-      replies: [...item._doc.replies, req.body]
-    }
+    const newChildItem = new Item(req.body)
 
-    Item.findByIdAndUpdate(updatedItem._id, updatedItem, { new: true })
-      .then( item => res.json(item))
+    newChildItem.save().then(childItem => {
+      const updatedItem = {
+        ...item._doc,
+        replies: [...item._doc.replies, childItem]
+      }
+  
+      Item.findByIdAndUpdate(updatedItem._id, updatedItem, { new: true })
+        .then( item => res.json(item))
+    })
   })
   .catch(err => res.status(404).json({success: false}))
 })

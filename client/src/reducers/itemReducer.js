@@ -3,7 +3,6 @@ import { GET_ITEMS, ADD_ITEM, ADD_CHILD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LO
 const initialState = {
   items: [],
   loading: false
-
 }
 
 export default function (state = initialState, action) {
@@ -29,7 +28,6 @@ export default function (state = initialState, action) {
         ...state,
         items: state.items.map( item => {
           if(item._id === action.payload._id){
-            console.log(action.payload)
             return {...item, replies: [...item.replies, action.payload]}
           }
           return item

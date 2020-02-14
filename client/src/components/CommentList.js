@@ -4,10 +4,10 @@ import { ListGroup } from 'reactstrap'
 import Comment from './Comment'
 
 export default function CommentList(props) {
+  console.log(props)
   return (
     <ListGroup>
-    <TransitionGroup className='shopping-list'>
-      {props.items.map(({ _id, author, comment, replies, createdAt, updatedAt }) => (
+     {props.items.map(({ _id, author, comment, replies, createdAt, updatedAt }) => (
         <Comment
           _id={_id}
           author={author}
@@ -18,7 +18,6 @@ export default function CommentList(props) {
           updateModalState={props.updateModalState}
         />
       ))}
-    </TransitionGroup>
   </ListGroup>
   )
 }
