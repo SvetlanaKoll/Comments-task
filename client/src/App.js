@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { Container } from 'reactstrap'
 import AppNavbar from './components/AppNavbar'
-import ShoppingList from './components/ShoppingList'
+import CommentPage from './components/CommentPage'
 import ItemModal from './components/ItemModal'
 import Footer from './components/Footer'
 
@@ -16,7 +16,7 @@ function App () {
         <AppNavbar />
         <Container>
           <ItemModal />
-          <ShoppingList />
+          <CommentPage />
         </Container>
         <Footer />
       </div>

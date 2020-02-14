@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types'
+import { GET_ITEMS, ADD_ITEM, ADD_CHILD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types'
 
 const initialState = {
   items: [],
@@ -23,6 +23,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         items: [action.payload, ...state.items]
+      }
+      case ADD_CHILD_ITEM:
+      return {
+        ...state,
+        items: state.items.map( item => {
+          if(item._id === action.payload._id){
+            console.log(action.payload)
+            return {...item, replies: [...item.replies, action.payload]}
+          }
+          return item
+        })
       }
       case UPDATE_ITEM:
       return {

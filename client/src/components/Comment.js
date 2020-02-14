@@ -3,8 +3,9 @@ import React from 'react'
 import { ListGroupItemText, ListGroupItemHeading, ListGroupItem, Button, ButtonGroup } from 'reactstrap'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { updateItem, deleteItem } from '../actions/itemActions'
+import { updateItem, deleteItem, addChildItem } from '../actions/itemActions'
 import moment from 'moment'
+import CommentList from './CommentList'
 
 const Comment = (props) => {
   const onDeleteClick = id => {
@@ -21,12 +22,25 @@ const Comment = (props) => {
       }
     })
   }
+  const onAddChildItemClick = id => {
+    props.addChildItem(id)
+    props.updateModalState({
+      mode: 'ADD_CHILD_ITEM',
+      isOpen: true,
+      data: { 
+        id: props._id,
+        author: props.author,
+        comment: props.comment,
+        replies: props.replies
+      }
+    })
+  }
 
   return (
     <CSSTransition key={props._id} timeout={500} classNames='fade'>
       <ListGroupItem className='list-item'>
         <ListGroupItemText>
-           Author: {props.author}
+            Author: {props.author}
         </ListGroupItemText>
         <ListGroupItemHeading>
           {props.comment}
@@ -34,7 +48,7 @@ const Comment = (props) => {
         <ListGroupItemText>
                 Created: {moment(props.createdAt).calendar()}
         </ListGroupItemText>
-                Updated at: {moment(props.updateAt).calendar()}
+                Updated at: {moment(props.updatedAt).calendar()}
         <ButtonGroup style={{ marginLeft: '90%' }}>
           <Button
             className='btn'
@@ -49,7 +63,7 @@ const Comment = (props) => {
             className='btn'
             color='info'
             size='sm'
-            // onClick={this.onDeleteClick.bind(this, _id)}
+            onClick={() => onAddChildItemClick( props._id )}
           ><i className='fas fa-reply'></i></Button>
 
           <Button
@@ -62,6 +76,10 @@ const Comment = (props) => {
           </Button>
         </ButtonGroup>
       </ListGroupItem>
+      <CommentList 
+      items={props.replies}
+      style={{marginLeft: '2 rem'}}
+      />
     </CSSTransition>
   )
 }
@@ -69,4 +87,4 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, { deleteItem, updateItem })(Comment)
+export default connect(mapStateToProps, { deleteItem, updateItem, addChildItem })(Comment)

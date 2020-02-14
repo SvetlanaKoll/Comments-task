@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   
 })
 
-//@route POST api/items
+//@route POST api/comments
 //@desc create an item 
 //@access Public
 
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
   newItem.save().then(item => res.json(item))
 })
 
-//@route DELETE api/items/:id
+//@route DELETE api/comments/:id
 //@desc delete an item 
 //@access Public
 
@@ -37,7 +37,7 @@ router.delete('/:id', (req, res) => {
   .catch(err => res.status(404).json({success: false}))
 })
 
-//@route UPDATE api/items/:id
+//@route UPDATE api/comments/:id
 //@desc update an item 
 //@access Public
 
@@ -47,13 +47,21 @@ router.post('/update/:id', (req, res) => {
   .catch(err => res.status(404).json({success: false}))
 })
 
-//@route ADD CHILD ITEM api/comment/:id
+//@route ADD CHILD ITEM api/comments/:id
 //@desc add child to an item 
 //@access Public
 
-router.post('/comment/:id', (req, res) => {
-  Item.findByIdAndUpdate(req.params.id, { replies: [req.body] }, {new: true})
-  .then( item => res.json(item))
+router.post('/:id', (req, res) => {
+  Item.findById(req.params.id)
+  .then(item => {
+    const updatedItem = {
+      ...item._doc,
+      replies: [...item._doc.replies, req.body]
+    }
+
+    Item.findByIdAndUpdate(updatedItem._id, updatedItem, { new: true })
+      .then( item => res.json(item))
+  })
   .catch(err => res.status(404).json({success: false}))
 })
 

@@ -21,7 +21,7 @@ mongoose
   .catch(err => console.log(err))
 
 //Use Routes
-app.use('/api/items', items)
+app.use('/api/comments', items)
 const port = process.env.PORT || 5000
 
 //Serve static assets if in production

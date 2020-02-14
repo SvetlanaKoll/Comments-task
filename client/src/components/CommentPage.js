@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react'
-import { Container, ListGroup, Button } from 'reactstrap'
-import { TransitionGroup } from 'react-transition-group'
+import { Container, Button } from 'reactstrap'
+
 import { connect } from 'react-redux'
-import { getItems, deleteItem, updateItem } from '../actions/itemActions'
+import { getItems } from '../actions/itemActions'
 import PropTypes from 'prop-types'
 import ItemModal from './ItemModal'
-import Comment from './Comment'
 
-const ShoppingList = (props) => {
+import CommentList from './CommentList'
+
+const CommentPage = (props) => {
   const [modalState, setModalState] = useState({
     isOpen: false,
     mode: 'CREATE',
@@ -22,15 +23,6 @@ const ShoppingList = (props) => {
   useEffect(() => {
     console.log(modalState)
   }, [modalState])
-
-  // It should be in Comment component
-  const showEditModal = (data) => {
-    setModalState({
-      isOpen: true,
-      mode: 'EDIT',
-      data
-    })
-  }
 
   const updateModalState = newState => setModalState({ ...modalState, ...newState })
 
@@ -51,24 +43,14 @@ const ShoppingList = (props) => {
         onClick={() => setModalState({ ...modalState, mode: 'CREATE', isOpen: true })}>
           Add Comment
       </Button>
-      <ListGroup>
-        <TransitionGroup className='shopping-list'>
-          {items.map(({ _id, author, comment, createdAt, updatedAt }) => (
-            <Comment
-              _id={_id}
-              author={author}
-              comment={comment}
-              createdAt={createdAt}
-              updatedAt={updatedAt}
-              updateModalState={updateModalState}
-            />
-          ))}
-        </TransitionGroup>
-      </ListGroup>
+      <CommentList 
+      items={items}
+      updateModalState={updateModalState}
+      />
     </Container>
   )
 }
-ShoppingList.propTypes = {
+CommentList.propTypes = {
   getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 }
@@ -77,4 +59,4 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, { getItems })(ShoppingList)
+export default connect(mapStateToProps, { getItems })(CommentPage)

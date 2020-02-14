@@ -11,12 +11,15 @@ import {
   Input
 } from 'reactstrap'
 import { connect } from 'react-redux'
-import { addItem, updateItem } from '../actions/itemActions'
+import { addItem, updateItem, addChildItem } from '../actions/itemActions'
 
 const ItemModal = (props) => {
-  useEffect(() => {
-    console.log(props)
-  }, [])
+//   useEffect(() => {
+//     if(props.modalState){
+//       console.log(props.modalState.mode)
+//     }
+   
+//   }, [props.modalState])
 
   const onSubmit = e => {
     e.preventDefault()
@@ -31,11 +34,15 @@ const ItemModal = (props) => {
         props.closeModal()
         break
       }
-      // case 'CREATE': { create_child
-      //   props.addItem(item)
-      //   props.closeModal()
-      //   break
-      // }
+      case 'ADD_CHILD_ITEM': {
+        props.addChildItem({
+          id: props.modalState.data.id,
+          replies: props.modalState.data.replies,
+          ...item
+        })
+        props.closeModal()
+        break
+      }
       case 'EDIT': {
         props.updateItem({
           id: props.modalState.data.id,
@@ -57,7 +64,7 @@ const ItemModal = (props) => {
         toggle={props.closeModal}>
         <ModalHeader
           toggle={props.closeModal}>
-             {props.modalState.mode === 'CREATE' || 'CREATE_CHILD' ? 'Add To Comment List' : 'Edit Your Comment'} 
+             {props.modalState.mode === 'CREATE' || props.modalState.mode === 'ADD_CHILD_ITEM' ? 'Add To Comment List' : 'Edit Your Comment'} 
         </ModalHeader>
         <ModalBody>
           <Form
@@ -66,7 +73,7 @@ const ItemModal = (props) => {
               <Label
                 for='item'>
                     Comment
-
+                    {props.modalState.mode}
               </Label>
               <Input
                 type='text'
@@ -80,14 +87,14 @@ const ItemModal = (props) => {
                 type='text'
                 name='name'
                 id='comment'
-                placeholder='Add your comment here'
-                defaultValue={props.modalState.data.comment || ''}
+                placeholder={props.modalState.mode === 'CREATE' || 'ADD_CHILD_ITEM' ? 'Add Comment' : props.modalState.data.comment}
+                defaultValue={props.modalState.data.comment || '' }
               >
               </Input>
               <Button
                 color='dark'
                 style={{ marginTop: '2rem' }}
-                block>{props.modalState.mode === 'CREATE' || 'CREATE_CHILD' ? 'Add Comment' : 'Edit'}</Button>
+                block>{props.modalState.mode === 'CREATE' || 'ADD_CHILD_ITEM' ? 'Add Comment' : 'Edit'}</Button>
             </FormGroup>
           </Form>
         </ModalBody>
@@ -98,4 +105,4 @@ const ItemModal = (props) => {
 const mapStateToProps = state => ({
   item: state.item
 })
-export default connect(mapStateToProps, { addItem, updateItem })(ItemModal)
+export default connect(mapStateToProps, { addItem, updateItem, addChildItem })(ItemModal)
