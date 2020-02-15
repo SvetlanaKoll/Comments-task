@@ -49,7 +49,7 @@ const ItemModal = (props) => {
         toggle={props.closeModal}>
         <ModalHeader
           toggle={props.closeModal}>
-             {props.modalState.mode === 'CREATE' || props.modalState.mode === 'ADD_CHILD_ITEM' ? 'Add To Comment List' : 'Edit Your Comment'} 
+             {props.modalState.mode === 'CREATE'  ? 'Add To Comment List' : 'Edit Your Comment'} 
         </ModalHeader>
         <ModalBody>
           <Form
@@ -58,28 +58,27 @@ const ItemModal = (props) => {
               <Label
                 for='item'>
                     Comment
-                    {props.modalState.mode}
               </Label>
               <Input
                 type='text'
                 name='author'
                 id='author'
                 placeholder='Your name'
-                defaultValue={props.modalState.data.author || ''}
+                defaultValue={props.modalState.mode === 'EDIT' ? props.modalState.data.author : ''}
               >
               </Input>
               <Input
                 type='text'
                 name='name'
                 id='comment'
-                placeholder={props.modalState.mode === 'CREATE' || 'ADD_CHILD_ITEM' ? 'Add Comment' : props.modalState.data.comment}
-                defaultValue={props.modalState.data.comment || '' }
+                placeholder='Add Comment'
+                defaultValue={props.modalState.mode === 'EDIT' ? props.modalState.data.comment : ''}
               >
               </Input>
               <Button
                 color='dark'
                 style={{ marginTop: '2rem' }}
-                block>{props.modalState.mode === 'CREATE' || 'ADD_CHILD_ITEM' ? 'Add Comment' : 'Edit'}</Button>
+                block>{props.modalState.mode === 'CREATE' ? 'Add Comment' : 'Edit'}</Button>
             </FormGroup>
           </Form>
         </ModalBody>

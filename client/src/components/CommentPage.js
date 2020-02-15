@@ -41,7 +41,7 @@ const CommentPage = (props) => {
       <Button
         color='dark'
         style={{ marginBottom: '2rem' }}
-        onClick={() => setModalState({ ...modalState, mode: 'CREATE', isOpen: true })}>
+        onClick={() => setModalState({ mode: 'CREATE', isOpen: true, data: {} })}>
           Add Comment
       </Button>
       <CommentList 
