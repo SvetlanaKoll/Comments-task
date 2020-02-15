@@ -46,3 +46,6 @@ transition: opacity 1000ms ease-in;
   color: #75817f;
   
 }
+.box{
+  margin-left: 2rem;
+}

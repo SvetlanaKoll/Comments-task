@@ -4,7 +4,6 @@ import { ListGroup } from 'reactstrap'
 import Comment from './Comment'
 
 export default function CommentList(props) {
-  console.log(props)
   return (
     <ListGroup>
      {props.items.map(({ _id, author, comment, replies, createdAt, updatedAt }) => (

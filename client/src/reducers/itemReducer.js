@@ -23,16 +23,6 @@ export default function (state = initialState, action) {
         ...state,
         items: [action.payload, ...state.items]
       }
-      case ADD_CHILD_ITEM:
-      return {
-        ...state,
-        items: state.items.map( item => {
-          if(item._id === action.payload._id){
-            return {...item, replies: [...item.replies, action.payload]}
-          }
-          return item
-        })
-      }
       case UPDATE_ITEM:
       return {
         ...state,

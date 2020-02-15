@@ -19,9 +19,14 @@ const ItemSchema = new Schema({
     type: Date,
     required: false
   },
-  replies:{
-    type: Array,
+  replies: [{
+    type: String,
     required: false
+  }],
+  parentCommentId:{
+    type: String,
+    required: false
+
   }
 }, {timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }})
 

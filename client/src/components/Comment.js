@@ -3,7 +3,7 @@ import React from 'react'
 import { ListGroupItemText, ListGroupItemHeading, ListGroupItem, Button, ButtonGroup } from 'reactstrap'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { updateItem, deleteItem, addChildItem } from '../actions/itemActions'
+import { updateItem, deleteItem, addItem } from '../actions/itemActions'
 import moment from 'moment'
 import CommentList from './CommentList'
 
@@ -22,16 +22,16 @@ const Comment = (props) => {
       }
     })
   }
-  const onAddChildItemClick = id => {
-    props.addChildItem(id)
+  const onAddChildItemClick = item => {
     props.updateModalState({
-      mode: 'ADD_CHILD_ITEM',
+      mode: 'CREATE',
       isOpen: true,
       data: { 
         id: props._id,
         author: props.author,
         comment: props.comment,
-        replies: props.replies
+        replies: props.replies,
+        parentCommentId: props._id
       }
     })
   }
@@ -78,10 +78,12 @@ const Comment = (props) => {
           </Button>
         </ButtonGroup>
       </ListGroupItem>
+      <div className="box">
       <CommentList 
         items={props.replies}
-        style={{marginLeft: '2 rem'}}
       />
+      </div>
+      
       </>
     </CSSTransition>
   )
@@ -90,4 +92,4 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, { deleteItem, updateItem, addChildItem })(Comment)
+export default connect(mapStateToProps, { deleteItem, updateItem, addItem })(Comment)

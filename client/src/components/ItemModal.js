@@ -11,19 +11,13 @@ import {
   Input
 } from 'reactstrap'
 import { connect } from 'react-redux'
-import { addItem, updateItem, addChildItem } from '../actions/itemActions'
+import { addItem, updateItem } from '../actions/itemActions'
 
 const ItemModal = (props) => {
-//   useEffect(() => {
-//     if(props.modalState){
-//       console.log(props.modalState.mode)
-//     }
-   
-//   }, [props.modalState])
-
   const onSubmit = e => {
     e.preventDefault()
     const item = {
+      ...props.modalState.data,
       author: e.target.author.value,
       comment: e.target.comment.value
     }
@@ -31,17 +25,6 @@ const ItemModal = (props) => {
     switch (props.modalState.mode) {
       case 'CREATE': {
         props.addItem(item)
-        props.closeModal()
-        break
-      }
-      case 'ADD_CHILD_ITEM': {
-        props.addChildItem({
-          commentId: props.modalState.data.id,
-          item: {
-            ...item,
-            replies: props.modalState.data.replies
-          }
-        })
         props.closeModal()
         break
       }
@@ -107,4 +90,4 @@ const ItemModal = (props) => {
 const mapStateToProps = state => ({
   item: state.item
 })
-export default connect(mapStateToProps, { addItem, updateItem, addChildItem })(ItemModal)
+export default connect(mapStateToProps, { addItem, updateItem })(ItemModal)

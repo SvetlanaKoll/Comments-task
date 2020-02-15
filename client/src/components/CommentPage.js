@@ -21,8 +21,9 @@ const CommentPage = (props) => {
   }, [])
 
   useEffect(() => {
-    console.log(modalState)
-  }, [modalState])
+    console.log(props.item.items)
+
+  }, [props.item.items])
 
   const updateModalState = newState => setModalState({ ...modalState, ...newState })
 
@@ -30,7 +31,7 @@ const CommentPage = (props) => {
   if (isLoading) {
     return 'Loading'
   }
-
+  
   return (
     <Container>
       <ItemModal
