@@ -39,7 +39,7 @@ transition: opacity 1000ms ease-in;
 .footer__links{
   display: flex;
   height: 100%;
-  margin-left: 10rem;
+  margin-left: 6.5vw;
   align-items: center;
   
 }
@@ -53,3 +53,12 @@ transition: opacity 1000ms ease-in;
 .box{
   margin-left: 2rem;
 }
+@media screen and (max-width: 600px) {
+  .buttons{
+    display: flex;
+    flex-direction: column;
+  }
+  .btn{
+    margin-top: 0.5rem;
+  }
+  }
