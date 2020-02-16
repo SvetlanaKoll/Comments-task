@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Button,
   Modal,
@@ -29,12 +29,16 @@ const ItemModal = (props) => {
         break
       }
       case 'EDIT': {
+        console.log(item)
         props.updateItem({
           id: props.modalState.data.id,
           item
         })
         props.closeModal()
         break
+      }
+      default:{
+        return item
       }
     }
   }

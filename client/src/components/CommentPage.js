@@ -52,7 +52,7 @@ const CommentPage = (props) => {
     </Container>
   )
 }
-CommentList.propTypes = {
+CommentPage.propTypes = {
   getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 }

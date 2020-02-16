@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, ADD_CHILD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types'
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types'
 
 const initialState = {
   items: [],
@@ -16,23 +16,18 @@ export default function (state = initialState, action) {
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter(item => item._id !== action.payload)
+        items: action.payload.items
       }
     case ADD_ITEM:
       return {
         ...state,
-        items: [action.payload, ...state.items]
+        items: action.payload.items
       }
       case UPDATE_ITEM:
+        console.log(action.payload.items)
       return {
         ...state,
-        items: state.items.map( item => {
-          if(item._id === action.payload._id){
-            console.log(action.payload)
-            return action.payload
-          }
-          return item
-        })
+        items: action.payload.items
       }
     case ITEMS_LOADING:
       return {

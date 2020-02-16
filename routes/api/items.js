@@ -28,8 +28,12 @@ router.post('/', async (req, res) => {
     const newItem = new Item(req.body)
 
     const item = await newItem.save()
+    const items = await Item.findAndGetChildren()
 
-    res.json(item)
+    res.json({
+      item,
+      items
+    })
   } catch (err) {
     switch (err.message) {
       case 'NO_PARENT_COMMENT_FOUND': {
@@ -62,7 +66,12 @@ router.delete('/:id', async (req, res) => {
 
     await item.remove()
 
-    res.json({ success: true })
+    const items = await Item.findAndGetChildren()
+
+    res.json({ 
+      success: true,
+      items
+    })
   } catch (err) {
     switch (err.message) {
       case 'NO_COMMENT_FOUND': {
@@ -88,6 +97,8 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/update/:id', async (req, res) => {
   try {
+    console.log(req.params.id)
+    console.log(req.body)
     const updatedComment = await Item.findOneAndUpdate(
       { _id: req.params.id }, 
       req.body, 
@@ -99,10 +110,14 @@ router.post('/update/:id', async (req, res) => {
     }
     
     const replies = await Item.getChildReplies(updatedComment.replies)
+    const items = await Item.findAndGetChildren()
 
     res.json({
-      ...updatedComment._doc,
-      replies
+      item: {
+        ...updatedComment._doc,
+        replies
+      },
+      items
     })
   } catch (err) {
     switch (err.message) {
