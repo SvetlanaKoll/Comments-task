@@ -1,5 +1,5 @@
 import React from 'react'
-import { TransitionGroup } from 'react-transition-group'
+
 import { ListGroup } from 'reactstrap'
 import Comment from './Comment'
 

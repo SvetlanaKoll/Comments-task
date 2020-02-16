@@ -53,6 +53,9 @@ transition: opacity 1000ms ease-in;
 .box{
   margin-left: 2rem;
 }
+.list-item{
+  overflow-x: auto;
+}
 @media screen and (max-width: 600px) {
   .buttons{
     display: flex;

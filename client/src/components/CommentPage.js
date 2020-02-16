@@ -45,6 +45,7 @@ const CommentPage = (props) => {
           Add Comment
       </Button>
       <CommentList 
+
         items={items}
         updateModalState={updateModalState}
       />
