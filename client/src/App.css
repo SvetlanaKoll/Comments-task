@@ -1,6 +1,11 @@
 .btn{
  margin-right: 0.5rem;
 }
+.buttons{
+  position: absolute;
+  right: 0;
+  bottom: 0.5rem;
+}
 .fade-enter{
 opacity: 0.01;
 }
@@ -34,7 +39,6 @@ transition: opacity 1000ms ease-in;
 .footer__links{
   display: flex;
   height: 100%;
-  width: 100%;
   margin-left: 10rem;
   align-items: center;
   

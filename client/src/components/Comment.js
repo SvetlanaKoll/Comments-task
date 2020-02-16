@@ -51,7 +51,7 @@ const Comment = (props) => {
                 Created: {moment(props.createdAt).calendar()}
         </ListGroupItemText>
                 Updated at: {moment(props.updatedAt).calendar()}
-        <ButtonGroup style={{ marginLeft: '90%' }}>
+        <ButtonGroup className="buttons">
           <Button
             className='btn'
             color='warning'
