@@ -82,6 +82,7 @@ const Comment = (props) => {
       <div className="box">
       <CommentList 
         items={props.replies}
+        updateModalState={props.updateModalState}
       />
       </div>
       
