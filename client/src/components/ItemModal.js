@@ -16,6 +16,7 @@ import { addItem, updateItem } from '../actions/itemActions'
 const ItemModal = (props) => {
   const onSubmit = e => {
     e.preventDefault()
+
     const item = {
       ...props.modalState.data,
       author: e.target.author.value,
@@ -29,7 +30,6 @@ const ItemModal = (props) => {
         break
       }
       case 'EDIT': {
-        console.log(item)
         props.updateItem({
           id: props.modalState.data.id,
           item
@@ -37,7 +37,7 @@ const ItemModal = (props) => {
         props.closeModal()
         break
       }
-      default:{
+      default: {
         return item
       }
     }
@@ -53,7 +53,7 @@ const ItemModal = (props) => {
         toggle={props.closeModal}>
         <ModalHeader
           toggle={props.closeModal}>
-             {props.modalState.mode === 'CREATE'  ? 'Add To Comment List' : 'Edit Your Comment'} 
+          {props.modalState.mode === 'CREATE' ? 'Add To Comment List' : 'Edit Your Comment'}
         </ModalHeader>
         <ModalBody>
           <Form

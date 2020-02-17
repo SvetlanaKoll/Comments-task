@@ -1,0 +1,18 @@
+{
+  "name": "list",
+  "version": "1.0.0",
+  "description": "list built with MERN stack",
+  "main": "src/index.js",
+  "author": "Svetlana Kollau",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.1",
+    "sentiment": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

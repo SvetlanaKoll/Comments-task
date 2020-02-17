@@ -2,7 +2,7 @@ import axios from 'axios'
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, UPDATE_ITEM, ITEMS_LOADING } from './types'
 
 export const getItems = () => async dispatch => {
-  // dispatch(setItemsLoading())
+  dispatch(setItemsLoading())
   const res = await axios.get('/api/comments')
 
   dispatch({
@@ -10,36 +10,31 @@ export const getItems = () => async dispatch => {
     payload: res.data
   })
 }
-export const addItem = item => dispatch => {
-  console.log(item)
-  axios
-    .post('/api/comments', item)
-    .then(res =>
-      dispatch({
-        type: ADD_ITEM,
-        payload: res.data
-      }))
+export const addItem = item => async dispatch => {
+  const res = await axios.post('/api/comments', item)
+
+  dispatch({
+    type: ADD_ITEM,
+    payload: res.data
+  })
 }
 
+export const updateItem = item => async dispatch => {
+  const res = await axios.post(`/api/comments/update/${item.id}`, item.item)
 
-export const updateItem = item => dispatch => {
-  axios
-    .post(`/api/comments/update/${item.id}`, item.item)
-    .then(res =>
-      dispatch({
-        type: UPDATE_ITEM,
-        payload: res.data
-      }))
+  dispatch({
+    type: UPDATE_ITEM,
+    payload: res.data
+  })
 }
 
-export const deleteItem = id => dispatch => {
-  axios
-    .delete(`/api/comments/${id}`)
-    .then(res =>
-      dispatch({
-        type: DELETE_ITEM,
-        payload: res.data
-      }))
+export const deleteItem = id => async dispatch => {
+  const res = await axios.delete(`/api/comments/${id}`)
+
+  dispatch({
+    type: DELETE_ITEM,
+    payload: res.data
+  })
 }
 
 export const setItemsLoading = () => {

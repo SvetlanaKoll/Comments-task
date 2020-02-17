@@ -23,8 +23,7 @@ export default function (state = initialState, action) {
         ...state,
         items: action.payload.items
       }
-      case UPDATE_ITEM:
-        console.log(action.payload.items)
+    case UPDATE_ITEM:
       return {
         ...state,
         items: action.payload.items

@@ -22,7 +22,6 @@ const CommentPage = (props) => {
 
   useEffect(() => {
     console.log(props.item.items)
-
   }, [props.item.items])
 
   const updateModalState = newState => setModalState({ ...modalState, ...newState })
@@ -31,7 +30,7 @@ const CommentPage = (props) => {
   if (isLoading) {
     return 'Loading'
   }
-  
+
   return (
     <Container>
       <ItemModal
@@ -44,8 +43,7 @@ const CommentPage = (props) => {
         onClick={() => setModalState({ mode: 'CREATE', isOpen: true, data: {} })}>
           Add Comment
       </Button>
-      <CommentList 
-
+      <CommentList
         items={items}
         updateModalState={updateModalState}
       />

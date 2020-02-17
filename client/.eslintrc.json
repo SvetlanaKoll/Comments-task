@@ -26,6 +26,7 @@
       "jsx-quotes": [
         1,
         "prefer-single"
-      ]
+      ],
+      "react/prop-types": 0
     }
   }

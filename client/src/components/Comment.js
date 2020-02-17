@@ -15,7 +15,7 @@ const Comment = (props) => {
     props.updateModalState({
       mode: 'EDIT',
       isOpen: true,
-      data: { 
+      data: {
         id: props._id,
         author: props.author,
         comment: props.comment
@@ -26,7 +26,7 @@ const Comment = (props) => {
     props.updateModalState({
       mode: 'CREATE',
       isOpen: true,
-      data: { 
+      data: {
         id: props._id,
         author: props.author,
         comment: props.comment,
@@ -39,53 +39,58 @@ const Comment = (props) => {
   return (
     <CSSTransition key={props._id} timeout={500} classNames='fade'>
       <>
-     
-      <ListGroupItem className='list-item'>
-        <ListGroupItemText>
+        <ListGroupItem className='list-item'>
+          <br />
+          <ListGroupItemHeading>
+            {props.comment}
+          </ListGroupItemHeading>
+          <hr />
+          <ListGroupItemText>
             Author: {props.author}
-        </ListGroupItemText>
-        <ListGroupItemHeading>
-          {props.comment}
-        </ListGroupItemHeading>
-        <ListGroupItemText>
-                Created: {moment(props.createdAt).calendar()}
-        </ListGroupItemText>
-                Updated at: {moment(props.updatedAt).calendar()}
-                
-        <ButtonGroup className="buttons">
-          <Button
-            className='btn'
-            color='warning'
-            size='sm'
-            onClick={() => onUpdateClick(props._id)}
-          >
-            <i className='fas fa-pencil-alt'></i>
-          </Button>
+          </ListGroupItemText>
+          <ListGroupItemText>
+            Created: {moment(props.createdAt).calendar()}
+          </ListGroupItemText>
+          <ListGroupItemText>
+            Updated at: {moment(props.updatedAt).calendar()}
+          </ListGroupItemText>
+          <ListGroupItemText>
+            State: {props.score > 0 ? 'positive' : props.score < 0 ? 'negative' : 'neutral'}
+          </ListGroupItemText>
 
-          <Button
-            className='btn'
-            color='info'
-            size='sm'
-            onClick={() => onAddChildItemClick( props._id )}
-          ><i className='fas fa-reply'></i></Button>
+          <ButtonGroup className='buttons'>
+            <Button
+              className='btn'
+              color='warning'
+              size='sm'
+              onClick={() => onUpdateClick(props._id)}
+            >
+              <i className='fas fa-pencil-alt'></i>
+            </Button>
 
-          <Button
-            className='btn'
-            color='danger'
-            size='sm'
-            onClick={() => onDeleteClick(props._id)}
-          >
+            <Button
+              className='btn'
+              color='info'
+              size='sm'
+              onClick={() => onAddChildItemClick(props._id)}
+            ><i className='fas fa-reply'></i></Button>
+
+            <Button
+              className='btn'
+              color='danger'
+              size='sm'
+              onClick={() => onDeleteClick(props._id)}
+            >
             &times;
-          </Button>
-        </ButtonGroup>
-      </ListGroupItem>
-      <div className="box">
-      <CommentList 
-        items={props.replies}
-        updateModalState={props.updateModalState}
-      />
-      </div>
-      
+            </Button>
+          </ButtonGroup>
+        </ListGroupItem>
+        <div className='box'>
+          <CommentList
+            items={props.replies}
+            updateModalState={props.updateModalState}
+          />
+        </div>
       </>
     </CSSTransition>
   )

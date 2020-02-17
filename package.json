@@ -1,27 +1,29 @@
 {
-  "name": "list",
+  "name": "comments-task",
   "version": "1.0.0",
-  "description": "list built with MERN stack",
-  "main": "server.js",
+  "description": "",
+  "main": "server/src/index.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client; npm i && npm run build"
+    "server:dev": "nodemon src --prefix server",
+    "server:prod": "node server/src",
+    "client:dev": "cd client; npm run start",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "build": "concurrently \"cd client; npm i && npm run build\" \"cd server; npm i\"",
+    "start": "npm run server:prod"
   },
-  "author": "Svetlana Kollau",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "concurrently": "^5.1.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.8.11",
-    "redux-thunk": "^2.3.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SvetlanaKoll/Comments-task.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SvetlanaKoll/Comments-task/issues"
+  },
+  "homepage": "https://github.com/SvetlanaKoll/Comments-task#readme",
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "nodemon": "^2.0.2"
   }
 }
