@@ -27,7 +27,7 @@ transition: opacity 1000ms ease-in;
 .block{
   height: 50vh;
   width: 100%;
-  background-image: url(static/lamp.webp);
+  background-image: url(static/lamp.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
